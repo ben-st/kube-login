@@ -1,0 +1,27 @@
+# example config for kube-login
+# change to your needs, ever setting can be set via flag or here
+
+# username for keycloak
+username: "admin@keycloak.devlocal"
+# password for keycloak
+password: "admin"
+# k8s api fqdn
+clustername: "minikube.dev"
+# k8s api port
+port: 8443
+
+# oidc fqdn 
+idp-issuer-url: "https://keycloak.devlocal/auth/realms/k8s"
+# oidc client id
+clientid: "oidckube"
+# oidc client secret
+clientsecret: "797a53e4-5824-49f9-a71a-bf1e2a50404f"
+
+# set this to true if you have a self signed certificate for your oidc provider
+insecure-oidc: false
+# default true, since feature for retrieving certificate (TOFU) is not yet implemented
+# setting it here won't change the behaviour, since it is hardcoded in kubeconfig.go
+#insecure-cluster: true
+
+# if you set this to true, kube-login will output only id and refresh token and will exit
+show-token: false
