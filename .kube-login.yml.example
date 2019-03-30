@@ -22,3 +22,6 @@ insecure-oidc: false
 # default true, since feature for retrieving certificate (TOFU) is not yet implemented
 # setting it here won't change the behaviour, since it is hardcoded in kubeconfig.go
 #insecure-cluster: true
+
+# if you set this to true, kube-login will output only id and refresh token and will exit
+show-token: false

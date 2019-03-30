@@ -41,6 +41,7 @@ var idpIssuerURL string
 var insecureOIDC bool
 var insecureCluster bool
 var port int
+var showToken bool
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -83,6 +84,13 @@ var rootCmd = &cobra.Command{
 		cc.idToken = tokenSet.IDToken
 		cc.refreshToken = tokenSet.RefreshToken
 
+		// if show-token is provided as a flag, only output tokens and exit
+		if viper.GetBool("show-token") {
+			fmt.Println("id-token is: ", cc.idToken)
+			fmt.Println("refresh-token is: ", cc.refreshToken)
+			os.Exit(0)
+		}
+
 		// set oidc config
 		// and patch kubeconfig
 		cc.SetAuthConfig()
@@ -109,17 +117,18 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.kube-login.yml)")
+	rootCmd.PersistentFlags().BoolVar(&showToken, "show-token", false, "show keycloak token and exit")
 
 	rootCmd.PersistentFlags().StringVarP(&username, "username", "u", "", "username for keycloak")
 	rootCmd.PersistentFlags().StringVarP(&password, "password", "p", "", "password for keycloak")
 	rootCmd.PersistentFlags().StringVarP(&clusterName, "clustername", "c", "", "clustername fqdn e.g api.kubernetes.example")
-	rootCmd.PersistentFlags().IntVar(&port, "port", 6443, "port for apiserver, defaults to 6443")
+	rootCmd.PersistentFlags().IntVar(&port, "port", 6443, "port for apiserver")
 
 	rootCmd.PersistentFlags().StringVar(&clientID, "clientid", "", "clientid for idp")
 	rootCmd.PersistentFlags().StringVar(&clientSecret, "clientsecret", "", "client secret for idp")
 	rootCmd.PersistentFlags().StringVar(&idpIssuerURL, "idp-issuer-url", "", "idp/oidc fqdn")
 	rootCmd.PersistentFlags().BoolVar(&insecureOIDC, "insecure-oidc", false, "if set insecure tls to oidc provider will be used, use with caution")
-	rootCmd.PersistentFlags().BoolVar(&insecureCluster, "insecure-cluster", false, "if set insecure tls to cluster in kubeconfig will be set, use with caution")
+	rootCmd.PersistentFlags().BoolVar(&insecureCluster, "insecure-cluster", true, "if set insecure tls to cluster in kubeconfig will be set, use with caution")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -135,6 +144,7 @@ func init() {
 	viper.BindPFlag("idp-issuer-url", rootCmd.PersistentFlags().Lookup("idp-issuer-url"))
 	viper.BindPFlag("insecureoidc", rootCmd.PersistentFlags().Lookup("insecure-oidc"))
 	viper.BindPFlag("insecurecluster", rootCmd.PersistentFlags().Lookup("insecure-cluster"))
+	viper.BindPFlag("show-token", rootCmd.PersistentFlags().Lookup("show-token"))
 
 }
 
