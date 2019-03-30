@@ -54,19 +54,19 @@ Flags:
 ```
 
 All commandline parameters can be set in the kube-login config.
+See .kube-login.yml-example for reference.
 
-Key | Value
-----|-----------|------
-`username`          |   username for idp provider
-`password`          |   password for idp provider
-`clustername`       |   k8s api fqdn
-`port`              |   k8s api port (default 6443)
-`idp-issuer-url`    |   Issuer URL of the provider.
-`client-id`         |   Client ID of the provider.
-`client-secret`     |   Client Secret of the provider.
-`insecure-oidc`     |   Insecure Connection to idp provider
-`insecure-cluster`  |   Insecure Connection to k8s api
-`show-token`        |   show tokens only and exit
+```yaml
+username: "admin@keycloak.devlocal"
+password: "admin"
+clustername: "minikube.dev"
+port: 8443
+idp-issuer-url: "https://keycloak.devlocal/auth/realms/k8s"
+clientid: "oidckube"
+clientsecret: "797a53e4-5824-49f9-a71a-bf1e2a50404f"
+insecure-oidc: false
+insecure-cluster: true
+```
 
 ### configfile path
 
