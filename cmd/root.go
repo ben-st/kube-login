@@ -164,6 +164,7 @@ func initConfig() {
 		// Search config in home directory with name ".kube-login" (without extension).
 		viper.AddConfigPath(home)
 		viper.SetConfigName(".kube-login")
+		viper.SetEnvPrefix("KUBE") // will be uppercased automatically
 	}
 
 	viper.AutomaticEnv() // read in environment variables that match
