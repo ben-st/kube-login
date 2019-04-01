@@ -12,7 +12,7 @@ Here is room for improvement, but you will need local kubectl binary anyway.
 
 move the kube-login.yml or toml to your homedir:
 
-`mv kube-login.yml ~/.kube-login.yml`
+`mv .kube-login.yml ~/.kube-login.yml`
 
 and update the key value pairs according to your setup
 e.g. username, password , clustername ...
