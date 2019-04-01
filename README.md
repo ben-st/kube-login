@@ -10,9 +10,12 @@ Here is room for improvement, but you will need local kubectl binary anyway.
 
 ## quick start
 
-rename .kube-login.yml.example to ~/.kube-login.yml
+move the kube-login.yml or toml to your homedir:
+
+`mv kube-login.yml ~/.kube-login.yml`
+
 and update the key value pairs according to your setup
-e.g. username, password ...
+e.g. username, password , clustername ...
 
 ``` bash
 kube-login
@@ -68,10 +71,21 @@ insecure-oidc: false
 insecure-cluster: true
 ```
 
+## ENV Variables
+
+You can set variables like clustername oder password as env variables.
+You have to export them with the `KUBE_` prefix and in **UPPERCASE**
+
+`export KUBE_USERNAME=foo`
+
+`export KUBE_PASSWORD=bar`
+
 ### configfile path
 
 You can set the commandline parameter `--config` to point the config file.
 Defaults to `~/.kube-login.yml`.
+
+you can use yaml or toml
 
 ### CA Certificates
 
@@ -93,7 +107,7 @@ i tested against keycloak in minikube with the help of:
 ## Contributing
 
 This is an open source software licensed under MIT License.
-All coontributions are welcome
+All contributions are welcome
 
 1. fork
 2. create a feature branch
